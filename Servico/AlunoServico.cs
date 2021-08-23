@@ -10,7 +10,7 @@ namespace api_desafio21dias.Servicos
         {
             using (var http = new HttpClient())
             {
-                using (var response = await http.GetAsync($"{Program.AlunoApi}/usuarios/{id}"))
+                using (var response = await http.GetAsync($"{Program.AlunoApi}/alunos/{id}"))
                 {
                     return response.IsSuccessStatusCode;
                 }

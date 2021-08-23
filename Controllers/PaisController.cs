@@ -30,14 +30,14 @@ namespace api_desafio21dias.Controllers
         // GET: /pais/5
         [HttpGet]
         [Route("/pais/{id}")]
-        public async Task<IActionResult> Details(ObjectId id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var pai = await paiMongoRepo.BuscaPorId(id);
+            var pai = await paiMongoRepo.BuscaPorId(ObjectId.Parse(id));
             if (pai == null)
             {
                 return NotFound();
@@ -66,7 +66,7 @@ namespace api_desafio21dias.Controllers
         // PUT: /pais/5
         [HttpPut]
         [Route("/pais/{id}")]
-        public async Task<IActionResult> Edit(ObjectId id, Pai pai)
+        public async Task<IActionResult> Edit(string id, Pai pai)
         {
             if (ModelState.IsValid)
             {
@@ -75,7 +75,7 @@ namespace api_desafio21dias.Controllers
 
                 try
                 {
-                    pai.Id = id;
+                    pai.Id = ObjectId.Parse(id);
                     paiMongoRepo.Atualizar(pai);
                 }
                 catch (Exception erro)
@@ -97,9 +97,9 @@ namespace api_desafio21dias.Controllers
         // DELETE: /pais/5
         [HttpDelete]
         [Route("/pais/{id}")]
-        public IActionResult DeleteConfirmed(ObjectId id)
+        public IActionResult DeleteConfirmed(string id)
         {
-            paiMongoRepo.RemovePorId(id);
+            paiMongoRepo.RemovePorId(ObjectId.Parse(id));
             return StatusCode(204);
         }
 
