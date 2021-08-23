@@ -18,6 +18,10 @@ namespace api_desafio21dias.Models
     [BsonRequired()]
     public int AlunoId { get; set; }
 
+    [BsonElement("aluno")]
+    [BsonRequired()]
+    public Aluno Aluno { get; set; }
+
     #endregion
 
     #region Metodos

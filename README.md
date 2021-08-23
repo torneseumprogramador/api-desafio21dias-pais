@@ -24,4 +24,5 @@
 # Componentes instalados:
 ``` bash
   dotnet add package mongocsharpdriver --version 2.13.1
+  dotnet add package Newtonsoft.Json --version 12.0.3
 ```

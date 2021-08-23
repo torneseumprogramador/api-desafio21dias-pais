@@ -56,6 +56,8 @@ namespace api_desafio21dias.Controllers
                 if(! (await AlunoServico.ValidarUsuario(pai.AlunoId)) )
                     return StatusCode(400, new { Mensagem = "O usuário passado não é válido ou não está cadastrado" });
 
+                pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId);
+
                 paiMongoRepo.Inserir(pai);
 
                 return StatusCode(201, pai);
@@ -76,6 +78,7 @@ namespace api_desafio21dias.Controllers
                 try
                 {
                     pai.Id = ObjectId.Parse(id);
+                    pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId);
                     paiMongoRepo.Atualizar(pai);
                 }
                 catch (Exception erro)
