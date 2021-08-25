@@ -1,4 +1,5 @@
 using System;
+using System.Text.Json.Serialization;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
@@ -8,7 +9,20 @@ namespace api_desafio21dias.Models
   {
     #region "Propriedades"
     [BsonId()]
-    public ObjectId Id { get; set; }
+    [JsonIgnore]
+    public ObjectId Codigo { get; set; }
+
+    public string Id 
+    { 
+        get
+        {
+            return this.Codigo.ToString();
+        } 
+        set
+        {
+            this.Codigo = ObjectId.Parse(value);
+        }
+    }
 
     [BsonElement("nome")]
     [BsonRequired()]

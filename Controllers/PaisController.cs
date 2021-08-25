@@ -77,13 +77,13 @@ namespace api_desafio21dias.Controllers
 
                 try
                 {
-                    pai.Id = ObjectId.Parse(id);
+                    pai.Id = id;
                     pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId);
                     paiMongoRepo.Atualizar(pai);
                 }
                 catch (Exception erro)
                 {
-                    if (! await PaiExists(pai.Id))
+                    if (! await PaiExists(pai.Codigo))
                     {
                         return NotFound();
                     }

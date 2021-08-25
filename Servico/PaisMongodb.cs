@@ -30,13 +30,13 @@ namespace api_desafio21dias.Servicos
 
         public async void Atualizar(Pai pai)
         {
-            var filter = Builders<Pai>.Filter.Eq(c => c.Id == pai.Id, true);
+            var filter = Builders<Pai>.Filter.Eq(c => c.Codigo == pai.Codigo, true);
             await this.mongoCollection().UpdateOneAsync(filter, new ObjectUpdateDefinition<Pai>(pai));
         }
 
         public async void RemovePorId(ObjectId id)
         {
-            await this.mongoCollection().DeleteOneAsync(p=> p.Id == id);
+            await this.mongoCollection().DeleteOneAsync(p=> p.Codigo == id);
         }
 
         public async Task<IList<Pai>> Todos()
@@ -46,7 +46,7 @@ namespace api_desafio21dias.Servicos
 
         public async Task<Pai> BuscaPorId(ObjectId id)
         {
-            return await this.mongoCollection().AsQueryable().Where(p => p.Id == id).FirstAsync();
+            return await this.mongoCollection().AsQueryable().Where(p => p.Codigo == id).FirstAsync();
         }
     }
 }
