@@ -30,8 +30,7 @@ namespace api_desafio21dias.Servicos
 
         public async void Atualizar(Pai pai)
         {
-            var filter = Builders<Pai>.Filter.Eq(c => c.Codigo == pai.Codigo, true);
-            await this.mongoCollection().UpdateOneAsync(filter, new ObjectUpdateDefinition<Pai>(pai));
+             await this.mongoCollection().ReplaceOneAsync(c => c.Codigo == pai.Codigo, pai);
         }
 
         public async void RemovePorId(ObjectId id)
