@@ -40,6 +40,9 @@ namespace api_desafio21dias.Controllers
             }
 
             var pai = await paiMongoRepo.BuscaPorId(ObjectId.Parse(id));
+
+            Console.WriteLine("====[ "  + pai + " ]====");
+
             if (pai == null)
             {
                 return NotFound();
@@ -55,10 +58,12 @@ namespace api_desafio21dias.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(! (await AlunoServico.ValidarUsuario(pai.AlunoId)) )
+                Console.WriteLine("======[" + pai.AlunoId + "]========");
+                var token = base.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                if(! (await AlunoServico.ValidarUsuario(pai.AlunoId, token)) )
                     return StatusCode(400, new { Mensagem = "O usuário passado não é válido ou não está cadastrado" });
 
-                pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId);
+                pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId, token);
 
                 paiMongoRepo.Inserir(pai);
 
@@ -74,13 +79,14 @@ namespace api_desafio21dias.Controllers
         {
             if (ModelState.IsValid)
             {
-                if(! (await AlunoServico.ValidarUsuario(pai.AlunoId)) )
+                var token = base.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                if(! (await AlunoServico.ValidarUsuario(pai.AlunoId, token)) )
                     return StatusCode(400, new { Mensagem = "O usuário passado não é válido ou não está cadastrado" });
 
                 try
                 {
                     pai.Id = id;
-                    pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId);
+                    pai.Aluno = await AlunoServico.BuscaPorId(pai.AlunoId, token);
                     paiMongoRepo.Atualizar(pai);
                 }
                 catch (Exception erro)

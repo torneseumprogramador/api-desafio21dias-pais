@@ -61,7 +61,7 @@ namespace api_desafio21dias
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Desafio 21 dias"));
         
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseCors(MyAllowSpecificOrigins);
 
             app.UseRouting();

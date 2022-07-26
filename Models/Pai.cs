@@ -20,7 +20,10 @@ namespace api_desafio21dias.Models
         } 
         set
         {
-            this.Codigo = ObjectId.Parse(value);
+            if(value != null)
+            {
+              this.Codigo = ObjectId.Parse(value);
+            }
         }
     }
 
